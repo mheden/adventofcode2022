@@ -1,3 +1,6 @@
+import re
+
+
 BIGNUM = 10**100
 
 
@@ -65,3 +68,34 @@ def xor(a, b):
 
 def assertEq(a, b):
     assert a == b, "%s == %s" % (a, b)
+
+
+def chunks(data, size):
+    """split a list into a list of lists"""
+    for i in range(0, len(data), size):
+        yield data[i : i + size]
+
+
+def take(data, items):
+    for _ in range(items):
+        yield data.pop(0)
+
+
+def numbers(s):
+    """return all numbers in a string"""
+    return lmap(int, re.findall(r"\d+", s))
+
+
+if __name__ == "__main__":
+    # chunks
+    assertEq(["ab", "cd", "ef", "gh"], list(chunks("abcdefgh", 2)))
+    assertEq(["abcd", "efgh"], list(chunks("abcdefgh", 4)))
+
+    # take
+    data = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    assertEq([1, 2, 3], list(take(data, 3)))
+    assertEq([4, 5, 6, 7, 8, 9], list(take(data, 6)))
+    assertEq([], data)
+
+    # numbers
+    assertEq([1, 2, 3, 4], numbers("hell1o world 2=3++++++4"))
