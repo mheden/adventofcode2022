@@ -45,7 +45,7 @@ def sign(n: int) -> int:
 
 
 def unique(lst):
-    return list(dict.fromkeys(lst))
+    return set(lst)
 
 
 def manhattan_distance(p0, p1) -> int:
